@@ -6,9 +6,7 @@
       <task-list v-bind:todo-list="tasks"></task-list>
     </header>
   </section>
-
 </template>
-
 
 <script>
   import InputTask from './components/InputTask'
@@ -24,10 +22,16 @@
         tasks: []
       }
     },
+    mounted () {
+      this.$events.on('newTask', eventData => this.addTask(eventData))
+    },
     methods: {
       addTask (task) {
         this.tasks.push(task)
       }
+    },
+    broadcast (task) {
+      this.$events.emit('newTask', task)
     }
   }
 </script>
